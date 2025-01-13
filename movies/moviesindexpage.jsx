@@ -10,7 +10,7 @@ export default function MovieIndexPage() {
 
     fetch(url)
       .then((res) => {
-        if (!res.ok) {
+        if (res.movie) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         return res.json();
