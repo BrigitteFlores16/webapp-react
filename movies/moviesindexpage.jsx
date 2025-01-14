@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Card from "../components/Card";
 
 export default function MovieIndexPage() {
   const [movies, setMovies] = useState([]);
@@ -10,7 +10,7 @@ export default function MovieIndexPage() {
 
     fetch(url)
       .then((res) => {
-        if (res.movie) {
+        if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         return res.json();
@@ -26,13 +26,17 @@ export default function MovieIndexPage() {
   return (
     <div className="container pt-5">
       <h1>Movies List</h1>
-      <ul>
+      <div className="row justify-content-start">
         {movies.map((movie) => (
-          <li key={movie.id}>
-            <Link to={"/movies/" + movie.id}>{movie.title}</Link>
-          </li>
+          <div className="col-md-4 col-sm-6 col-12 mb-4" key={movie.id}>
+            <Card
+              image={movie.image}
+              title={movie.title}
+              link={{ to: `/movies/${movie.id}` }}
+            />
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

@@ -1,3 +1,7 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Card from "../components/Card";
+
 export default function MovieShowPage() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
@@ -26,16 +30,16 @@ export default function MovieShowPage() {
 
   return (
     <div className="container pt-5">
-      <h1>{movie.title}</h1>
-      <img src={movie.image} alt={movie.title} />
-      <h2>Reviews:</h2>
-      <ul>
-        {movie.reviews.map((review, index) => (
-          <li key={index}>
+      <Card
+        image={movie.image}
+        title={movie.title}
+        subtitle="Reviews"
+        description={movie.reviews.map((review, index) => (
+          <div key={index}>
             <strong>{review.name}</strong>: {review.text} (vote: {review.vote})
-          </li>
+          </div>
         ))}
-      </ul>
+      />
     </div>
   );
 }
