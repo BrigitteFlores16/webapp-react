@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg custom-header">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           Library

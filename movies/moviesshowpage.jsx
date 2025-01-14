@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Card from "../components/Card";
 
 export default function MovieShowPage() {
@@ -11,7 +11,7 @@ export default function MovieShowPage() {
 
     fetch(url)
       .then((res) => {
-        if (res.movie) {
+        if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         return res.json();
@@ -29,17 +29,33 @@ export default function MovieShowPage() {
   }
 
   return (
-    <div className="container pt-5">
-      <Card
-        image={movie.image}
-        title={movie.title}
-        subtitle="Reviews"
-        description={movie.reviews.map((review, index) => (
-          <div key={index}>
-            <strong>{review.name}</strong>: {review.text} (vote: {review.vote})
-          </div>
-        ))}
-      />
+    <div className="movie-show-page container pt-5">
+      <Card image={movie.image} title={movie.title} />
+      <div className="reviews mt-4">
+        <h3>Reviews</h3>
+        {movie.reviews && movie.reviews.length > 0 ? (
+          movie.reviews.map((review, index) => (
+            <div key={index} className="review-item mb-3">
+              <strong>{review.name}</strong>: {review.text}
+              <div className="stars">
+                {Array.from({ length: review.vote }, (_, i) => (
+                  <span key={i}>&#9733;</span>
+                ))}
+                {Array.from({ length: 5 - review.vote }, (_, i) => (
+                  <span key={i}>&#9734;</span>
+                ))}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div>No reviews yet.</div>
+        )}
+      </div>
+      <div className="mt-4">
+        <Link to="/movies" className="btn btn-secondary">
+          Ritorna alla lista
+        </Link>
+      </div>
     </div>
   );
 }

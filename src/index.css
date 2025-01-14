@@ -1,0 +1,44 @@
+body {
+  background-color: #764dc3;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.card-container {
+  padding: 0px;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+.card-img-top {
+  object-fit: contain;
+  height: 350px;
+  width: 100%;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card-footer {
+  text-align: center;
+  padding: 10px;
+}
+.custom-header {
+  background-color: #3f0665;
+  color: white;
+}
+
+.custom-header .nav-link {
+  color: white;
+}
+
+.custom-header .nav-link:hover {
+  color: #0026ff;
+}

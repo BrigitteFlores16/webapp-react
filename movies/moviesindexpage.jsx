@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import Card from "../components/Card";
 
 export default function MovieIndexPage() {
@@ -26,12 +27,17 @@ export default function MovieIndexPage() {
   return (
     <div className="container pt-5">
       <h1>Movies List</h1>
-      <div className="row justify-content-start">
+      <div className="row justify-content-center">
         {movies.map((movie) => (
-          <div className="col-md-4 col-sm-6 col-12 mb-4" key={movie.id}>
+          <div
+            className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4"
+            key={movie.id}
+          >
             <Card
               image={movie.image}
               title={movie.title}
+              director={movie.director}
+              abstract={movie.abstract}
               link={{ to: `/movies/${movie.id}` }}
             />
           </div>
