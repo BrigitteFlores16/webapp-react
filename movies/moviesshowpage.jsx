@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Card from "../components/Card";
+import ReviewsForm from "../components/ReviewsForm";
 
 export default function MovieShowPage() {
   const { id } = useParams();
@@ -24,6 +25,13 @@ export default function MovieShowPage() {
       });
   }, [id]);
 
+  const updateReviews = (reviews) => {
+    setMovie((prevMovie) => ({
+      ...prevMovie,
+      reviews,
+    }));
+  };
+
   if (!movie) {
     return <div>Loading...</div>;
   }
@@ -31,6 +39,7 @@ export default function MovieShowPage() {
   return (
     <div className="movie-show-page container pt-5">
       <Card image={movie.image} title={movie.title} />
+      <hr />
       <div className="reviews mt-4">
         <h3>Reviews</h3>
         {movie.reviews && movie.reviews.length > 0 ? (
@@ -51,6 +60,8 @@ export default function MovieShowPage() {
           <div>No reviews yet.</div>
         )}
       </div>
+      <ReviewsForm movieId={id} updateReviews={updateReviews} />
+
       <div className="mt-4">
         <Link to="/movies" className="btn btn-secondary">
           Ritorna alla lista
