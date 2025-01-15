@@ -32,7 +32,6 @@ export default function ReviewsForm({ movieId, updateReviews }) {
             ]);
 
             setReviewForm(formInitialData);
-
             window.location.reload();
           } else {
             alert(data.message);
@@ -44,7 +43,8 @@ export default function ReviewsForm({ movieId, updateReviews }) {
   };
 
   const validateForm = ({ name, text, vote }) => {
-    if (!name) return false;
+    const nameWithoutSpaces = name.trim();
+    if (!nameWithoutSpaces || nameWithoutSpaces.includes(" ")) return false;
     if (!text) return false;
     if (isNaN(parseInt(vote)) || vote < 1 || vote > 5) return false;
 
@@ -74,6 +74,9 @@ export default function ReviewsForm({ movieId, updateReviews }) {
           name="name"
           value={reviewForm.name}
           onChange={handleFormChange}
+          required
+          pattern="\S+"
+          title="Il nome non può contenere spazi"
         />
       </div>
       <div className="col-3">
@@ -82,6 +85,9 @@ export default function ReviewsForm({ movieId, updateReviews }) {
         </label>
         <input
           type="number"
+          min="1"
+          max="5"
+          required
           className="form-control"
           id="vote"
           name="vote"
